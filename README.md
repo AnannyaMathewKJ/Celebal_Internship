@@ -233,3 +233,45 @@ This project focuses on the implementation and comparative evaluation of deep le
 1. **Topology Preservation:** Traditional ANNs are inherently limited for computer vision problems because flattening operations discard essential spatial context.
 2. **Optimization Engineering:** Deep architectures require an intentional application of **Data Augmentation**, **Batch Normalization**, and **Dropout** to manage variance and perform effectively on unseen, real-world data distributions.
 3. **Core Competence:** This project completes the foundational pipeline requirements for deep learning deployments, demonstrating end-to-end fluency in hyperparameter tuning, debugging training curves, and structural neural network optimization.
+# 🚀 Data Science Internship - Celebal Technologies
+
+This repository documents the weekly tasks, implementations, and core learning objectives completed during my Data Science Internship track.
+
+---
+
+## 📅 Week 5: Fine-Tuning and Transfer Learning
+
+### 🧠 Core Concepts
+* **Transfer Learning:** Reusing feature maps from state-of-the-art pre-trained architectures (e.g., ResNet, VGG, MobileNet) optimized on massive datasets like ImageNet to drastically reduce training time.
+* **Fine-Tuning:** Unfreezing specific top layers of a pre-trained network and training them jointly with the new custom classification layers to adapt to domain-specific features.
+* **Data Augmentation:** Introducing random transformations (rotation, scaling, shearing, horizontal flips) to the training pipeline to combat overfitting on small datasets.
+
+### 🛠️ Implementation Checklist
+- [x] Loaded a pre-trained backbone model without its top classification layer.
+- [x] Froze the base convolutional layers to preserve the learned feature extractions.
+- [x] Appended custom Fully Connected (Dense) layers matching the target dataset classes.
+- [x] Compiled the model using an appropriate optimizer with a conservative learning rate.
+- [x] Trained and evaluated the newly added classification head.
+
+---
+
+## 📅 Week 6: Image Denoising using Autoencoders
+
+### 🎯 Objective
+Build and train a **Convolutional Autoencoder** deep learning model using Keras/TensorFlow to successfully remove synthetic noise (Gaussian/Salt-and-Pepper) from the **MNIST digits dataset**.
+
+### 🏗️ Architectural Concept
+An autoencoder is an unsupervised neural network that compresses an input into a lower-dimensional latent space representation (**Encoder**) and then reconstructs the original input from this representation (**Decoder**). 
+
+For a **Denoising Autoencoder (DAE)**, the input is intentionally corrupted with noise, while the target loss is calculated against the original, clean image. This forces the network to learn the underlying structural manifold of the digits rather than simply memorizing identity mappings.
+
+```text
+       ┌─────────────────┐       ┌───────────────────┐       ┌─────────────────┐
+       │   Noisy Input   │ ────> │   Encoder Layers  │ ────> │  Latent Space   │
+       │  (Digit + Noise)│       │  (Conv2D + MaxPool│       │ (Bottleneck Z)  │
+       └─────────────────┘       └───────────────────┘       └─────────────────┘
+                                                                      │
+       ┌─────────────────┐       ┌───────────────────┐                │
+       │ Denoised Output │ <──── │   Decoder Layers  │ <──────────────┘
+       │ (Clean Reconst.)│       │ (Conv2D + UpSample)│
+       └─────────────────┘       └───────────────────┘
