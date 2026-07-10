@@ -1,0 +1,45 @@
+{
+  "datasetName": "sales_data.csv",
+  "datasetType": "csv",
+  "datasetContent": "date,product,region,revenue,units_sold\n2025-01-05,Laptop,North,12000,10\n2025-01-08,Phone,South,8000,16\n2025-01-12,Tablet,East,4500,9\n2025-01-15,Laptop,West,15000,12\n2025-01-18,Phone,North,9000,18\n2025-01-22,Tablet,South,3500,7\n2025-01-25,Laptop,East,11000,9\n2025-01-28,Phone,West,10500,21\n2025-02-02,Laptop,South,13500,11\n2025-02-05,Phone,East,7500,15\n2025-02-09,Tablet,West,5000,10\n2025-02-12,Laptop,North,14000,11\n2025-02-16,Phone,South,8500,17\n2025-02-20,Tablet,East,4000,8",
+  "query": "Show me the total revenue grouped by region in a bar chart.",
+  "executionSteps": [
+    {
+      "stepNumber": 1,
+      "title": "Generating initial analytical code",
+      "status": "success",
+      "code": "import csv\nimport json\nfrom collections import defaultdict\n\n# 1. Open and parse the CSV file\nfile_path = \"./data_file\"\ntotals_by_region = defaultdict(float)\n\nwith open(file_path, newline='', encoding='utf-8') as f:\n    reader = csv.DictReader(f)\n    for raw_row in reader:\n        # 2. Clean whitespaces from keys and values\n        row = {k.strip(): v.strip() for k, v in raw_row.items()}\n        region = row.get(\"region\", \"\")\n        revenue_str = row.get(\"revenue\", \"0\")\n        try:\n            revenue = float(revenue_str)\n        except ValueError:\n            revenue = 0.0\n        totals_by_region[region] += revenue\n\n# 3. Prepare chart data\nchart_data = [\n    {\"label\": region, \"value\": round(total, 2)}\n    for region, total in sorted(totals_by_region.items())\n]\n\n# 4. Build the final JSON structure\noutput = {\n    \"chartType\": \"bar\",\n    \"chartData\": chart_data,\n    \"chartConfig\": {\n        \"xKey\": \"label\",\n        \"yKeys\": [\"value\"],\n        \"xLabel\": \"Region\",\n        \"yLabel\": \"Revenue\"\n    },\n    \"insight\": (\n        \"The bar chart displays total revenue generated in each region. \"\n        \"It highlights which geographic areas contribute most to overall sales, \"\n        \"allowing stakeholders to identify strong and weak markets. \"\n        \"Regions with higher bars indicate higher cumulative revenue, \"\n        \"suggesting where marketing and sales efforts are most effective.\"\n    )\n}\n\n# 5. Output JSON string to stdout\nprint(json.dumps(output, ensure_ascii=False))",
+      "stdout": "{\"chartType\": \"bar\", \"chartData\": [{\"label\": \"East\", \"value\": 27000.0}, {\"label\": \"North\", \"value\": 35000.0}, {\"label\": \"South\", \"value\": 33500.0}, {\"label\": \"West\", \"value\": 30500.0}], \"chartConfig\": {\"xKey\": \"label\", \"yKeys\": [\"value\"], \"xLabel\": \"Region\", \"yLabel\": \"Revenue\"}, \"insight\": \"The bar chart displays total revenue generated in each region. It highlights which geographic areas contribute most to overall sales, allowing stakeholders to identify strong and weak markets. Regions with higher bars indicate higher cumulative revenue, suggesting where marketing and sales efforts are most effective.\"}\n",
+      "stderr": ""
+    }
+  ],
+  "chartType": "bar",
+  "chartData": [
+    {
+      "label": "East",
+      "value": 27000.0
+    },
+    {
+      "label": "North",
+      "value": 35000.0
+    },
+    {
+      "label": "South",
+      "value": 33500.0
+    },
+    {
+      "label": "West",
+      "value": 30500.0
+    }
+  ],
+  "chartConfig": {
+    "xKey": "label",
+    "yKeys": [
+      "value"
+    ],
+    "xLabel": "Region",
+    "yLabel": "Revenue"
+  },
+  "insightSummary": "The bar chart displays total revenue generated in each region. It highlights which geographic areas contribute most to overall sales, allowing stakeholders to identify strong and weak markets. Regions with higher bars indicate higher cumulative revenue, suggesting where marketing and sales efforts are most effective.",
+  "finalCode": "import csv\nimport json\nfrom collections import defaultdict\n\n# 1. Open and parse the CSV file\nfile_path = \"./data_file\"\ntotals_by_region = defaultdict(float)\n\nwith open(file_path, newline='', encoding='utf-8') as f:\n    reader = csv.DictReader(f)\n    for raw_row in reader:\n        # 2. Clean whitespaces from keys and values\n        row = {k.strip(): v.strip() for k, v in raw_row.items()}\n        region = row.get(\"region\", \"\")\n        revenue_str = row.get(\"revenue\", \"0\")\n        try:\n            revenue = float(revenue_str)\n        except ValueError:\n            revenue = 0.0\n        totals_by_region[region] += revenue\n\n# 3. Prepare chart data\nchart_data = [\n    {\"label\": region, \"value\": round(total, 2)}\n    for region, total in sorted(totals_by_region.items())\n]\n\n# 4. Build the final JSON structure\noutput = {\n    \"chartType\": \"bar\",\n    \"chartData\": chart_data,\n    \"chartConfig\": {\n        \"xKey\": \"label\",\n        \"yKeys\": [\"value\"],\n        \"xLabel\": \"Region\",\n        \"yLabel\": \"Revenue\"\n    },\n    \"insight\": (\n        \"The bar chart displays total revenue generated in each region. \"\n        \"It highlights which geographic areas contribute most to overall sales, \"\n        \"allowing stakeholders to identify strong and weak markets. \"\n        \"Regions with higher bars indicate higher cumulative revenue, \"\n        \"suggesting where marketing and sales efforts are most effective.\"\n    )\n}\n\n# 5. Output JSON string to stdout\nprint(json.dumps(output, ensure_ascii=False))"
+}
