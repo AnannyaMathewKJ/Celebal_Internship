@@ -1,0 +1,6 @@
+# Ignore environment variables containing API keys
+.env
+
+# Ignore python virtual environments (if you use one)
+
+__pycache__/
