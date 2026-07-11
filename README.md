@@ -276,12 +276,13 @@ For a **Denoising Autoencoder (DAE)**, the input is intentionally corrupted with
        │ (Clean Reconst.)│       │ (Conv2D + UpSample)│
        └─────────────────┘       └───────────────────┘
 ```
+---
 ## Week 7: Document Q/A System (RAG)
 
 ### 📌 Project Overview
 A local **Retrieval-Augmented Generation (RAG)** system that allows users to securely upload private PDFs (resumes, notes, textbooks) and chat with them. It combines document search with a local Large Language Model to deliver accurate answers grounded strictly in the source documents.
 
----
+
 
 ### 🏗️ System Architecture
 [ Upload PDF ] ➔ [ Chunk Text ] ➔ [ Create Embeddings ] ➔ [ Store in Vector DB ]
@@ -291,7 +292,7 @@ A local **Retrieval-Augmented Generation (RAG)** system that allows users to sec
 2. **Embedding & Storage:** Converts text segments into mathematical vectors via `nomic-embed-text` and indexes them in a local **ChromaDB**.
 3. **Retrieval & Generation:** Matches user questions against the vector database, pulls the top 3 relevant paragraphs, and passes them to **Llama 3** to draft a fact-checked response.
 
----
+
 
 ### 🛠️ Stack & Components
 * **UI:** Streamlit (Chat interface and sidebar controls)
@@ -301,7 +302,6 @@ A local **Retrieval-Augmented Generation (RAG)** system that allows users to sec
   * *Embeddings Engine:* `nomic-embed-text`
   * *Language Model:* `llama3`
 
----
 
 ### 🚀 Quick Start
 
